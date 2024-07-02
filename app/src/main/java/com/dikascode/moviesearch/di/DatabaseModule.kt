@@ -2,7 +2,7 @@ package com.dikascode.moviesearch.di
 
 import android.content.Context
 import androidx.room.Room
-import com.dikascode.moviesearch.data.repository.MovieDao
+import com.dikascode.moviesearch.data.room.MovieDao
 import com.dikascode.moviesearch.data.room.MovieDatabase
 import dagger.Module
 import dagger.Provides

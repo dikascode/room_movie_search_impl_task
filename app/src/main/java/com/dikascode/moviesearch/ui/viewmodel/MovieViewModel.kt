@@ -34,8 +34,12 @@ class MovieViewModel @Inject constructor(
             _loading.value = true
             when (val result = repository.searchMovies(query)) {
                 is Result.Success -> {
-                    _movies.value = result.data
-                    _error.value = null
+                    if (result.data.isEmpty()) {
+                        _error.value = "No movies found for the search term."
+                    } else {
+                        _movies.value = result.data
+                        _error.value = null
+                    }
                 }
                 is Result.Error -> {
                     _error.value = result.message

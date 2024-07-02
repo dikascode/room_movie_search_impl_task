@@ -1,6 +1,7 @@
 package com.dikascode.moviesearch.data.room
 
 import androidx.room.TypeConverter
+import com.dikascode.moviesearch.data.room.entity.Rating
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

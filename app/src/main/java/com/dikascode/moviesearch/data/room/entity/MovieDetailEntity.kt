@@ -1,12 +1,13 @@
-package com.dikascode.moviesearch.data.room
+package com.dikascode.moviesearch.data.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.dikascode.moviesearch.data.room.RatingListConverter
 
-@Entity(tableName = "movies")
+@Entity(tableName = "movie_details")
 @TypeConverters(RatingListConverter::class)
-data class MovieEntity(
+data class MovieDetailEntity(
     @PrimaryKey
     val imdbID: String,
     val title: String,

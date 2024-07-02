@@ -1,7 +1,7 @@
 package com.dikascode.moviesearch.di
 
 import com.dikascode.moviesearch.data.network.OMDbApiService
-import com.dikascode.moviesearch.data.repository.MovieDao
+import com.dikascode.moviesearch.data.room.MovieDao
 import com.dikascode.moviesearch.data.repository.MovieRepository
 import dagger.Module
 import dagger.Provides

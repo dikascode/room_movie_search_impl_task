@@ -42,7 +42,7 @@ object NetworkModule {
                     403 -> "Forbidden: $errorBody"
                     404 -> "Not Found: $errorBody"
                     500 -> "Internal Server Error: $errorBody"
-                    else -> "Unknown error: $errorBody"
+                    else -> "Error: $errorBody"
                 }
                 throw HttpException(response.code, errorMessage)
             }

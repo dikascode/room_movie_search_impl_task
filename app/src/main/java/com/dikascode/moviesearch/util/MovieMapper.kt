@@ -1,12 +1,15 @@
 package com.dikascode.moviesearch.util
 
 import com.dikascode.moviesearch.data.model.MovieDetailResponse
-import com.dikascode.moviesearch.data.room.MovieEntity
+import com.dikascode.moviesearch.data.room.entity.MovieDetailEntity
 
 import com.dikascode.moviesearch.data.model.Rating as ModelRating
-import com.dikascode.moviesearch.data.room.Rating as RoomRating
+import com.dikascode.moviesearch.data.room.entity.Rating as RoomRating
 
-fun MovieEntity.toMovieDetailResponse(): MovieDetailResponse {
+import com.dikascode.moviesearch.data.model.Movie
+import com.dikascode.moviesearch.data.room.entity.MovieListEntity
+
+fun MovieDetailEntity.toMovieDetailResponse(): MovieDetailResponse {
     return MovieDetailResponse(
         imdbID = this.imdbID,
         title = this.title,
@@ -36,8 +39,8 @@ fun MovieEntity.toMovieDetailResponse(): MovieDetailResponse {
     )
 }
 
-fun MovieDetailResponse.toEntity(): MovieEntity {
-    return MovieEntity(
+fun MovieDetailResponse.toEntity(): MovieDetailEntity {
+    return MovieDetailEntity(
         imdbID = this.imdbID,
         title = this.title,
         year = this.year,
@@ -77,5 +80,25 @@ fun RoomRating.toModel(): ModelRating {
     return ModelRating(
         source = this.source,
         value = this.value
+    )
+}
+
+fun Movie.toEntity(): MovieListEntity {
+    return MovieListEntity(
+        imdbID = this.imdbID,
+        title = this.title,
+        year = this.year,
+        type = this.type,
+        poster = this.poster
+    )
+}
+
+fun MovieListEntity.toMovie(): Movie {
+    return Movie(
+        imdbID = this.imdbID,
+        title = this.title,
+        year = this.year,
+        type = this.type,
+        poster = this.poster
     )
 }
