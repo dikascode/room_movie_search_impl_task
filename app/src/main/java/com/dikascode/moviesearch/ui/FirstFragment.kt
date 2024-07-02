@@ -5,36 +5,59 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dikascode.moviesearch.R
 import com.dikascode.moviesearch.databinding.FragmentFirstBinding
+import com.dikascode.moviesearch.ui.adapter.MovieAdapter
+import com.dikascode.moviesearch.ui.viewmodel.MovieViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+@AndroidEntryPoint
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val movieViewModel: MovieViewModel by viewModels()
+    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        movieAdapter = MovieAdapter { movie ->
+
+        }
+
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = movieAdapter
+        }
+
+        binding.searchButton.setOnClickListener {
+            val query = binding.searchEditText.text.trim().toString()
+            if (query.isNotEmpty()) {
+                binding.progressBar.visibility = View.VISIBLE
+                movieViewModel.searchMovies(query)
+            }
+        }
+
+        movieViewModel.movies.observe(viewLifecycleOwner) { movies ->
+            binding.progressBar.visibility = View.GONE
+            movieAdapter.setMovies(movies)
+        }
+
+        movieViewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 

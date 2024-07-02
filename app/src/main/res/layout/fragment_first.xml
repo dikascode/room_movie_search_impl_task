@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_movie_title"
         android:inputType="text"
-        android:padding="@dimen/dimen_8"
+        android:paddingHorizontal="@dimen/dimen_8"
+        android:paddingVertical="@dimen/dimen_20dp"
         android:layout_marginBottom="@dimen/dimen_8"/>
 
     <Button
@@ -24,10 +25,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/dimen_8"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_8"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_8"/>
-
 </LinearLayout>
