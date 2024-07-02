@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dikascode.moviesearch.data.repository.Result
 import com.dikascode.moviesearch.data.model.Movie
 import com.dikascode.moviesearch.data.model.MovieDetailResponse
 import com.dikascode.moviesearch.data.repository.MovieRepository
@@ -16,20 +17,30 @@ class MovieViewModel @Inject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _movies = MutableLiveData<List<Movie>>()
-    val movies: LiveData<List<Movie>> get() = _movies
+    private val _movies = MutableLiveData<List<Movie>?>()
+    val movies: MutableLiveData<List<Movie>?> get() = _movies
 
-    private val _movieDetail = MutableLiveData<MovieDetailResponse>()
-    val movieDetail: LiveData<MovieDetailResponse> get() = _movieDetail
+    private val _movieDetail = MutableLiveData<MovieDetailResponse?>()
+    val movieDetail: MutableLiveData<MovieDetailResponse?> get() = _movieDetail
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
+    private val _error = MutableLiveData<String?>()
+    val error: MutableLiveData<String?> get() = _error
+
     fun searchMovies(query: String) {
         viewModelScope.launch {
             _loading.value = true
-            val results = repository.searchMovies(query)
-            _movies.value = results
+            when (val result = repository.searchMovies(query)) {
+                is Result.Success -> {
+                    _movies.value = result.data
+                    _error.value = null
+                }
+                is Result.Error -> {
+                    _error.value = result.message
+                }
+            }
             _loading.value = false
         }
     }
@@ -37,8 +48,15 @@ class MovieViewModel @Inject constructor(
     fun getMovieDetails(id: String) {
         viewModelScope.launch {
             _loading.value = true
-            val detail = repository.getMovieDetails(id)
-            _movieDetail.value = detail
+            when (val result = repository.getMovieDetails(id)) {
+                is Result.Success -> {
+                    _movieDetail.value = result.data
+                    _error.value = null
+                }
+                is Result.Error -> {
+                    _error.value = result.message
+                }
+            }
             _loading.value = false
         }
     }
