@@ -5,28 +5,27 @@ import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.dikascode.moviesearch.R
-import com.dikascode.moviesearch.databinding.FragmentSecondBinding
 import com.dikascode.moviesearch.data.model.MovieDetailResponse
+import com.dikascode.moviesearch.databinding.FragmentMovieDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SecondFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentMovieDetailsBinding? = null
     private val binding get() = _binding!!
-    private val args: SecondFragmentArgs by navArgs()
+    private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
         bindMovieDetails(args.movie)
         return binding.root
     }

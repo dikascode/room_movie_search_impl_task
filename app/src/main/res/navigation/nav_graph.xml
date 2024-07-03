@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.dikascode.moviesearch.ui.FirstFragment"
+        android:name="com.dikascode.moviesearch.ui.MovieListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_movie_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_MovieListFragment_to_MovieDetailsFragment"
             app:destination="@id/SecondFragment">
             <argument
                 android:name="movie"
@@ -21,12 +21,12 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.dikascode.moviesearch.ui.SecondFragment"
+        android:name="com.dikascode.moviesearch.ui.MovieDetailsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_movie_details">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_MovieDetailsFragment_to_MovieListFragment"
             app:destination="@id/FirstFragment"/>
         <argument
             android:name="movie"

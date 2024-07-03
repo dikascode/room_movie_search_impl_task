@@ -1,5 +1,6 @@
 package com.dikascode.moviesearch.di
 
+import com.dikascode.moviesearch.BuildConfig
 import com.dikascode.moviesearch.data.network.OMDbApiService
 import com.dikascode.moviesearch.util.HttpException
 import dagger.Module
@@ -81,6 +82,6 @@ object NetworkModule {
     @Provides
     @Named("API_KEY")
     fun provideApiKey(): String {
-        return ""
+        return BuildConfig.API_KEY
     }
 }

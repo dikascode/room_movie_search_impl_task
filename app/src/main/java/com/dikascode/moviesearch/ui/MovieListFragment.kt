@@ -1,7 +1,6 @@
 package com.dikascode.moviesearch.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dikascode.moviesearch.data.model.MovieDetailResponse
 import com.dikascode.moviesearch.data.repository.Result
-import com.dikascode.moviesearch.databinding.FragmentFirstBinding
+import com.dikascode.moviesearch.databinding.FragmentMovieListBinding
 import com.dikascode.moviesearch.ui.adapter.MovieAdapter
 import com.dikascode.moviesearch.ui.adapter.MovieDetailCallback
 import com.dikascode.moviesearch.ui.viewmodel.MovieViewModel
@@ -23,9 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FirstFragment : Fragment(), MovieDetailCallback {
+class MovieListFragment : Fragment(), MovieDetailCallback {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
     private val movieViewModel: MovieViewModel by viewModels()
     private lateinit var movieAdapter: MovieAdapter
@@ -34,7 +33,7 @@ class FirstFragment : Fragment(), MovieDetailCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -106,7 +105,7 @@ class FirstFragment : Fragment(), MovieDetailCallback {
     }
 
     override fun onMovieDetailRetrieved(movieDetail: MovieDetailResponse) {
-        val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(movieDetail)
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment(movieDetail)
         findNavController().navigate(action)
     }
 
