@@ -47,4 +47,19 @@
     <string name="enter_movie_title">Enter movie title</string>
     <string name="year">Year</string>
     <string name="movie_title">Movie Title</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="imbd_rating">IMBD Rating</string>
+    <string name="plot">Plot</string>
+    <string name="actors">Actors</string>
+    <string name="director">Director</string>
+    <string name="genre">Genre</string>
+
+    <string name="movie_detail_title"><![CDATA[<b>Title:</b> %1$s]]></string>
+    <string name="movie_detail_year"><![CDATA[<b>Year:</b> %1$s]]></string>
+    <string name="movie_detail_genre"><![CDATA[<b>Genre:</b> %1$s]]></string>
+    <string name="movie_detail_director"><![CDATA[<b>Director:</b> %1$s]]></string>
+    <string name="movie_detail_actors"><![CDATA[<b>Actors:</b> %1$s]]></string>
+    <string name="movie_detail_plot"><![CDATA[<b>Plot:</b> %1$s]]></string>
+    <string name="movie_detail_imdb_rating"><![CDATA[<b>IMDB Rating:</b> %1$s]]></string>
+    <string name="no_movie_found">No movies found for that title.</string>
 </resources>

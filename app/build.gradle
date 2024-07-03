@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id "androidx.navigation.safeargs"
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -38,7 +40,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
@@ -61,7 +63,7 @@ dependencies {
 
     // Dagger/Hilt for dependency injection
     implementation "com.google.dagger:hilt-android:2.49"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.49"
 
 
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.8.3"

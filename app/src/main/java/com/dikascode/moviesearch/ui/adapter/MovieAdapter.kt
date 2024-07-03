@@ -1,48 +1,50 @@
 package com.dikascode.moviesearch.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dikascode.moviesearch.R
 import com.dikascode.moviesearch.data.model.Movie
+import com.dikascode.moviesearch.data.model.MovieDetailResponse
+import com.dikascode.moviesearch.databinding.ItemMovieBinding
 
 class MovieAdapter(private val onItemClick: (Movie) -> Unit) :
-    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-
-    private var movies: List<Movie> = listOf()
+    ListAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movie = movies[position]
+        val movie = getItem(position)
         holder.bind(movie)
-        holder.itemView.setOnClickListener { onItemClick(movie) }
     }
 
-    override fun getItemCount() = movies.size
-
-    fun setMovies(movies: List<Movie>) {
-        this.movies = movies
-        notifyDataSetChanged()
-    }
-
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            itemView.findViewById<TextView>(R.id.titleTextView).text = movie.title
-            itemView.findViewById<TextView>(R.id.yearTextView).text = movie.year
-
-            val posterImageView = itemView.findViewById<ImageView>(R.id.moviePosterImageView)
-            Glide.with(itemView.context)
+            binding.titleTextView.text = movie.title
+            binding.yearTextView.text = movie.year
+            Glide.with(binding.root.context)
                 .load(movie.poster)
-                .into(posterImageView)
-
+                .into(binding.moviePosterImageView)
+            binding.root.setOnClickListener { onItemClick(movie) }
         }
     }
+
+    class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem.imdbID == newItem.imdbID
+        }
+
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
+
+interface MovieDetailCallback {
+    fun onMovieDetailRetrieved(movieDetail: MovieDetailResponse)
 }

@@ -38,4 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_8"/>
+
+    <TextView
+        android:id="@+id/noResultsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_movie_found"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dimen_8"/>
 </LinearLayout>

@@ -29,7 +29,6 @@ data class MovieDetailEntity(
     val imdbRating: String,
     val imdbVotes: String,
     val type: String,
-    val dvd: String,
     val boxOffice: String,
     val production: String,
     val website: String,

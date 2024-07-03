@@ -1,41 +1,55 @@
 package com.dikascode.moviesearch.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import android.widget.Toast
+import androidx.core.text.HtmlCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.dikascode.moviesearch.R
 import com.dikascode.moviesearch.databinding.FragmentSecondBinding
+import com.dikascode.moviesearch.data.model.MovieDetailResponse
+import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+@AndroidEntryPoint
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val args: SecondFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        bindMovieDetails(args.movie)
         return binding.root
-
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun bindMovieDetails(movieDetail: MovieDetailResponse) {
+        binding.apply {
+            titleTextView.text = movieDetail.title
+            yearTextView.text = getHtmlText(R.string.movie_detail_year, movieDetail.year)
+            genreTextView.text = getHtmlText(R.string.movie_detail_genre, movieDetail.genre)
+            directorTextView.text = getHtmlText(R.string.movie_detail_director, movieDetail.director)
+            actorsTextView.text = getHtmlText(R.string.movie_detail_actors, movieDetail.actors)
+            plotTextView.text = getHtmlText(R.string.movie_detail_plot, movieDetail.plot)
+            ratingTextView.text = getHtmlText(R.string.movie_detail_imdb_rating, movieDetail.imdbRating)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            Glide.with(requireContext())
+                .load(movieDetail.poster)
+                .into(posterImageView)
         }
+    }
+
+    private fun getHtmlText(stringResId: Int, value: String): Spanned {
+        val text = getString(stringResId, value)
+        return HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     override fun onDestroyView() {

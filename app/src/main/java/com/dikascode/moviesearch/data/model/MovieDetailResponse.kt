@@ -1,7 +1,10 @@
 package com.dikascode.moviesearch.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MovieDetailResponse(
     @SerializedName("Title")
     val title: String,
@@ -63,9 +66,6 @@ data class MovieDetailResponse(
     @SerializedName("Type")
     val type: String,
 
-    @SerializedName("DVD")
-    val dvd: String,
-
     @SerializedName("BoxOffice")
     val boxOffice: String,
 
@@ -77,12 +77,14 @@ data class MovieDetailResponse(
 
     @SerializedName("Response")
     val response: String
-)
+): Parcelable
 
+
+@Parcelize
 data class Rating(
     @SerializedName("Source")
     val source: String,
 
     @SerializedName("Value")
     val value: String
-)
+): Parcelable

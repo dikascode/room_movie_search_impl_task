@@ -1,5 +1,6 @@
 package com.dikascode.moviesearch.data.repository
 
+import android.util.Log
 import com.dikascode.moviesearch.data.model.Movie
 import com.dikascode.moviesearch.data.model.MovieDetailResponse
 import com.dikascode.moviesearch.data.model.MovieResponse
@@ -41,7 +42,7 @@ class MovieRepository @Inject constructor(
                     movieDao.insertMovieLists(movies.map { it.toEntity() })
                     Result.Success(movies)
                 } else {
-                    Result.Error("Error occurred: ${response.message()}")
+                    Result.Error(response.message())
                 }
             }
         } catch (e: HttpException) {
@@ -51,7 +52,7 @@ class MovieRepository @Inject constructor(
         } catch (e: UnknownException) {
             Result.Error("Error: ${e.message}")
         } catch (e: Exception) {
-            Result.Error("An unexpected error occurred: ${e.message}")
+            Result.Error("${e.message}")
         }
     }
 
@@ -67,7 +68,7 @@ class MovieRepository @Inject constructor(
                     response.body()?.let { movieDao.insertMovieDetail(it.toEntity()) }
                     Result.Success(response.body()!!)
                 } else {
-                    Result.Error("Error occurred: ${response.message()}")
+                    Result.Error(response.message())
                 }
             }
         } catch (e: HttpException) {
@@ -77,7 +78,8 @@ class MovieRepository @Inject constructor(
         } catch (e: UnknownException) {
             Result.Error("Unknown error: ${e.message}")
         } catch (e: Exception) {
-            Result.Error("An unexpected error occurred: ${e.message}")
+            Log.d("ErrorLog", "${e.message}")
+            Result.Error("An unexpected error occurred")
         }
     }
 }
